@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+
+# Private Keys
+keys/private_key.pem
+*.pem
+*.key
+*.keystore
+*.p12
+*.pfx
+
+# Output files
+output/
+*.log 
