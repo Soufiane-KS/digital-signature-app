@@ -160,3 +160,71 @@ MIT License
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Blockchain Integration
+
+### Data Structure for Blockchain Storage
+
+The system generates a signed package that can be stored on the blockchain. There are two recommended approaches:
+
+#### 1. Full Storage Approach
+Store the complete signed package:
+```json
+{
+  "timestamp": "2025-05-27T20:31:32.491975+00:00",
+  "signature": "<base64_encoded_cryptographic_signature>",
+  "hash_algorithm": "SHA-256",
+  "signed_data": {
+    "document": "<base64_encoded_document>",
+    "signature_image": "<base64_encoded_handwritten_signature>",
+    "timestamp": "2025-05-27T20:31:32.491975+00:00"
+  }
+}
+```
+
+#### 2. Essential Storage Approach
+Store only the critical verification data:
+```json
+{
+  "document_hash": "<SHA-256_hash_of_original_document>",
+  "signature": "<cryptographic_signature>",
+  "timestamp": "<UTC_timestamp>",
+  "metadata": {
+    "hash_algorithm": "SHA-256",
+    "signature_type": "RSA-PSS"
+  }
+}
+```
+
+### Storage Considerations
+
+1. **Full Storage**:
+   - Advantages:
+     - Complete record on-chain
+     - Easier verification process
+     - Self-contained proof
+   - Disadvantages:
+     - Higher storage costs
+     - Larger blockchain footprint
+
+2. **Essential Storage**:
+   - Advantages:
+     - Minimal storage requirements
+     - Lower blockchain costs
+     - Sufficient for verification
+   - Disadvantages:
+     - Requires off-chain document storage
+     - More complex verification process
+
+### Verification Process
+
+1. **With Full Storage**:
+   - Extract data from blockchain
+   - Use the `/verify` endpoint with the stored data
+   - All information is available on-chain
+
+2. **With Essential Storage**:
+   - Retrieve document from off-chain storage
+   - Calculate document hash
+   - Compare with stored hash
+   - Verify signature and timestamp
