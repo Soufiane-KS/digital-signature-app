@@ -44,7 +44,7 @@ async def generate_user_keys(user_id: str):
     if key_manager.user_exists(user_id):
         raise HTTPException(status_code=400, detail=f"User {user_id} already has keys")
     try:
-        key_manager.generate_keys(user_id)
+        key_manager.generate_user_keys(user_id)
         return {"message": f"Keys generated for user {user_id}"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
